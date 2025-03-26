@@ -1,0 +1,85 @@
+{
+  "name": "translate-i18n",
+  "displayName": "Translate i18n",
+  "description": "🚀 i18n Code Translator is a powerful VS Code extension that simplifies the translation of i18n strings directly within your code editor. Designed for developers working on internationalized applications, it enables fast and accurate translations without leaving VS Code.",
+  "publisher": "NguyenVinhTieng",
+  "icon": "logo.png",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nguyenvinhtieng/translate-i18n.git"
+  },
+  "engines": {
+    "vscode": "^1.54.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "menus": {
+      "editor/context": [
+        {
+          "command": "translate-i18n.translateI18nDetect",
+          "when": "editorTextFocus",
+          "group": "navigation"
+        },
+        {
+          "command": "translate-i18n.translateI18n",
+          "when": "editorTextFocus",
+          "group": "navigation"
+        },
+        {
+          "command": "translate-i18n.translateToEnglish",
+          "when": "editorTextFocus",
+          "group": "navigation"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "translate-i18n.translateI18n",
+        "title": "Translate i18n"
+      },
+      {
+        "command": "translate-i18n.translateI18nDetect",
+        "title": "Translate i18n (Auto Detect)"
+      },
+      {
+        "command": "translate-i18n.translateToEnglish",
+        "title": "Translate to English"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run package",
+    "compile": "pnpm run check-types && pnpm run lint && node esbuild.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "pnpm run check-types && pnpm run lint && node esbuild.js --production",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "pnpm run compile-tests && pnpm run compile && pnpm run lint",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.54.0",
+    "@typescript-eslint/eslint-plugin": "^8.28.0",
+    "@typescript-eslint/parser": "^8.28.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "esbuild": "^0.25.1",
+    "eslint": "^9.23.0",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  }
+}
