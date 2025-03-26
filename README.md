@@ -47,7 +47,7 @@
    
    • The selected text will be translated into English and displayed in a new document.
    
-   ![Translate to English](./assets/translate-english.gif)
+   ![Translate to English](./assets/translate-eng.gif)
 
 ## License
 
