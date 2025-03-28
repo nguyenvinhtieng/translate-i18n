@@ -1,9 +1,31 @@
-# Change Log
+# Change Logs
 
-All notable changes to the "translate-i18n" extension will be documented in this file.
+## [0.0.1] - Initial Release (🚀)
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+- Launched the first version of the translate-i18n extension.
 
-## [Unreleased]
+- Provided basic translation functionality for selected text.
 
-- Initial release
+## [0.0.2] - Bug Fixes & Refinements (🐞)
+
+- Fixed an issue where redundant characters appeared in translation results.
+
+- Improved overall stability and performance.
+
+## [0.0.3] - Enhanced Translation Display (📌)
+
+- Updated the extension to display translation results inline next to the original text, making it easier for users to compare.
+
+- Improved UI/UX for better readability and accessibility.
+
+- Optimized command execution speed for smoother translations.
+
+## [0.0.4] - New Features: Select & Hover Translation (✨)
+
+- Introduced a Translate on Select and Hover feature.
+
+- Users can now simply select text or hover over words to trigger an automatic translation.
+
+- Improved the extension’s responsiveness and integration with VS Code’s context menus.
+
+- Addressed minor inconsistencies in language detection.
