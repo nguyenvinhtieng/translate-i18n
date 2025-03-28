@@ -56,13 +56,13 @@
       },
       {
         "command": "translate-i18n.offAutoTranslate",
-        "title": "Off auto translate"
+        "title": "Turn off auto translate"
       }
     ],
     "submenus": [
       {
         "id": "translate-i18n.autoTranslateSubmenu",
-        "label": "Auto translate on select and hover ${translate-i18n.currentLanguage}"
+        "label": "Auto translate on select and hover"
       }
     ],
     "menus": {
@@ -112,6 +112,14 @@
         {
           "command": "translate-i18n.autoTranslateToCHINESE",
           "group": "1_auto@5"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "translate-i18n.autoTranslateToENGLISH"
+        },
+        {
+          "command": "translate-i18n.autoTranslateToVIETNAMESE"
         }
       ]
     },
