@@ -30,3 +30,5 @@ export const SUPPORT_LANGUAGES = {
   CHINESE: "Chinese (zh)",
   RUSSIAN: "Russian (ru)",
 } as const;
+
+export const APP_KEY = "translate-i18n";

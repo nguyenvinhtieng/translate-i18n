@@ -13,30 +13,14 @@
     "vscode": "^1.54.0"
   },
   "categories": [
-    "Other"
+    "AI",
+    "Keymaps",
+    "Other",
+    "Languages"
   ],
   "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
-    "menus": {
-      "editor/context": [
-        {
-          "command": "translate-i18n.translateI18nDetect",
-          "when": "editorTextFocus",
-          "group": "navigation"
-        },
-        {
-          "command": "translate-i18n.translateI18n",
-          "when": "editorTextFocus",
-          "group": "navigation"
-        },
-        {
-          "command": "translate-i18n.translateToEnglish",
-          "when": "editorTextFocus",
-          "group": "navigation"
-        }
-      ]
-    },
     "commands": [
       {
         "command": "translate-i18n.translateI18n",
@@ -49,19 +33,101 @@
       {
         "command": "translate-i18n.translateToEnglish",
         "title": "Translate to English"
+      },
+      {
+        "command": "translate-i18n.autoTranslateToENGLISH",
+        "title": "English"
+      },
+      {
+        "command": "translate-i18n.autoTranslateToVIETNAMESE",
+        "title": "Vietnamese"
+      },
+      {
+        "command": "translate-i18n.autoTranslateToCHINESE",
+        "title": "Chinese"
+      },
+      {
+        "command": "translate-i18n.autoTranslateToJAPANESE",
+        "title": "Japanese"
+      },
+      {
+        "command": "translate-i18n.autoTranslateToKOREAN",
+        "title": "Korean"
       }
-    ]
+    ],
+    "submenus": [
+      {
+        "id": "translate-i18n.autoTranslateSubmenu",
+        "label": "Auto translate on select and hover"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "translate-i18n.translateI18n",
+          "when": "editorTextFocus",
+          "group": "-1_translate-i18n@1"
+        },
+        {
+          "command": "translate-i18n.translateI18nDetect",
+          "when": "editorTextFocus",
+          "group": "-1_translate-i18n@2"
+        },
+        {
+          "command": "translate-i18n.translateToEnglish",
+          "when": "editorTextFocus",
+          "group": "-1_translate-i18n@3"
+        },
+        {
+          "submenu": "translate-i18n.autoTranslateSubmenu",
+          "when": "editorTextFocus",
+          "group": "-1_translate-i18n@4"
+        }
+      ],
+      "translate-i18n.autoTranslateSubmenu": [
+        {
+          "command": "translate-i18n.autoTranslateToENGLISH",
+          "group": "1_auto"
+        },
+        {
+          "command": "translate-i18n.autoTranslateToKOREAN",
+          "group": "1_auto"
+        },
+        {
+          "command": "translate-i18n.autoTranslateToVIETNAMESE",
+          "group": "1_auto"
+        },
+        {
+          "command": "translate-i18n.autoTranslateToJAPANESE",
+          "group": "1_auto"
+        },
+        {
+          "command": "translate-i18n.autoTranslateToCHINESE",
+          "group": "1_auto"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Translate i18n",
+      "properties": {
+        "translate-i18n.autoTranslateLanguage": {
+          "type": "string",
+          "default": "English",
+          "description": "Default translation language"
+        }
+      }
+    }
   },
   "scripts": {
-    "vscode:prepublish": "pnpm run package",
-    "compile": "pnpm run check-types && pnpm run lint && node esbuild.js",
+    "vscode:prepublish": "yarn run package",
+    "compile": "yarn run check-types && yarn run lint && node esbuild.js",
     "watch": "npm-run-all -p watch:*",
     "watch:esbuild": "node esbuild.js --watch",
     "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
-    "package": "pnpm run check-types && pnpm run lint && node esbuild.js --production",
+    "package": "yarn run check-types && yarn run lint && node esbuild.js --production",
     "compile-tests": "tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
-    "pretest": "pnpm run compile-tests && pnpm run compile && pnpm run lint",
+    "pretest": "yarn run compile-tests && yarn run compile && yarn run lint",
     "check-types": "tsc --noEmit",
     "lint": "eslint src",
     "test": "vscode-test"
