@@ -12,7 +12,7 @@ export default function registerTranslateOnHoverCommand(
   const hoverProvide = vscode.languages.registerHoverProvider(
     { scheme: "file" },
     {
-      async provideHover(document, position, token) {
+      async provideHover() {
         const textSelected = getTextSelected();
         if (!textSelected) {
           return;
@@ -20,7 +20,6 @@ export default function registerTranslateOnHoverCommand(
         let autoTranslateLanguage = vscode.workspace
           .getConfiguration(APP_KEY)
           .get(AUTO_TRANSLATE_KEY);
-
         if (
           typeof autoTranslateLanguage !== "string" ||
           !autoTranslateLanguage
@@ -52,12 +51,21 @@ export default function registerTranslateOnHoverCommand(
         `Auto translate to ${value} language is enabled!`
       );
     });
-    context.subscriptions.push(command, hoverProvide);
+    context.subscriptions.push(command);
   });
 
-  vscode.commands.executeCommand(
-    "setContext",
-    "translate-i18n.dynamicSubmenuEnabled",
-    true
+  context.subscriptions.push(hoverProvide);
+
+  // Off option
+  const command = vscode.commands.registerCommand(
+    "translate-i18n.offAutoTranslate",
+    async () => {
+      await vscode.workspace
+        .getConfiguration(APP_KEY)
+        .update(AUTO_TRANSLATE_KEY, "", vscode.ConfigurationTarget.Global);
+
+      vscode.window.showInformationMessage("Turn off auto translate");
+    }
   );
+  context.subscriptions.push(command);
 }

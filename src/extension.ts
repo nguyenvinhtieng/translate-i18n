@@ -1,6 +1,4 @@
 import * as vscode from "vscode";
-import { SUPPORT_LANGUAGES } from "./constants/common.constant";
-import { getTextSelected } from "./utils/vs-code.utils";
 import registerTranslateI18nCommand from "./commands/translateI18n";
 import registerTranslateI18nDetectCommand from "./commands/translateI18nDetect";
 import registerTranslateToEnglishCommand from "./commands/translateToEnglish";

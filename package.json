@@ -53,12 +53,16 @@
       {
         "command": "translate-i18n.autoTranslateToKOREAN",
         "title": "Korean"
+      },
+      {
+        "command": "translate-i18n.offAutoTranslate",
+        "title": "Off auto translate"
       }
     ],
     "submenus": [
       {
         "id": "translate-i18n.autoTranslateSubmenu",
-        "label": "Auto translate on select and hover"
+        "label": "Auto translate on select and hover ${translate-i18n.currentLanguage}"
       }
     ],
     "menus": {
@@ -86,24 +90,28 @@
       ],
       "translate-i18n.autoTranslateSubmenu": [
         {
+          "command": "translate-i18n.offAutoTranslate",
+          "group": "1_auto@0"
+        },
+        {
           "command": "translate-i18n.autoTranslateToENGLISH",
-          "group": "1_auto"
+          "group": "1_auto@1"
         },
         {
           "command": "translate-i18n.autoTranslateToKOREAN",
-          "group": "1_auto"
+          "group": "1_auto@2"
         },
         {
           "command": "translate-i18n.autoTranslateToVIETNAMESE",
-          "group": "1_auto"
+          "group": "1_auto@3"
         },
         {
           "command": "translate-i18n.autoTranslateToJAPANESE",
-          "group": "1_auto"
+          "group": "1_auto@4"
         },
         {
           "command": "translate-i18n.autoTranslateToCHINESE",
-          "group": "1_auto"
+          "group": "1_auto@5"
         }
       ]
     },
