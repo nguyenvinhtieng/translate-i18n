@@ -37,3 +37,9 @@
 - Users can now translate entire JSON files with a single click.
 
 - Enhanced the extension’s file handling capabilities for better performance.
+
+## [0.0.6] - Improvement and Optimize (📌)
+
+- Update to allow users to translate up to 20 files at once.
+
+- Improved the extension’s performance and stability.

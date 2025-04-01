@@ -25,7 +25,7 @@ export default function registerTranslateI18nFilesCommand(
           );
         }
 
-        const MAX_FILES = 10;
+        const MAX_FILES = 20;
         if (files.length > MAX_FILES) {
           return vscode.window.showErrorMessage(
             `You can only translate up to ${MAX_FILES} files at a time.`
@@ -74,6 +74,17 @@ export default function registerTranslateI18nFilesCommand(
                 })`,
               });
 
+              const destFilePath = path.join(destFolder[0].fsPath, fileName);
+              if (existingFiles.has(destFilePath)) {
+                const confirm = await vscode.window.showInformationMessage(
+                  `File ${fileName} already exists. Overwrite?`,
+                  { modal: true },
+                  "Yes",
+                  "No"
+                );
+                if (confirm !== "Yes") continue;
+              }
+
               const fileContent = getFileContent(file.fsPath);
               if (!fileContent) continue;
 
@@ -93,18 +104,6 @@ export default function registerTranslateI18nFilesCommand(
                     2
                   )
                 : response.data;
-
-              const destFilePath = path.join(destFolder[0].fsPath, fileName);
-
-              if (existingFiles.has(destFilePath)) {
-                const confirm = await vscode.window.showInformationMessage(
-                  `File ${fileName} already exists. Overwrite?`,
-                  { modal: true },
-                  "Yes",
-                  "No"
-                );
-                if (confirm !== "Yes") continue;
-              }
 
               await vscode.workspace.fs.writeFile(
                 vscode.Uri.file(destFilePath),
