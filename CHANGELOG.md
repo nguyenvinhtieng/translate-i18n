@@ -29,3 +29,11 @@
 - Improved the extension’s responsiveness and integration with VS Code’s context menus.
 
 - Addressed minor inconsistencies in language detection.
+
+## [0.0.5] - Translation Files (✨)
+
+- Added support for translating multiple files at once.
+
+- Users can now translate entire JSON files with a single click.
+
+- Enhanced the extension’s file handling capabilities for better performance.

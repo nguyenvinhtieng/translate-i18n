@@ -8,7 +8,7 @@ export default function registerTranslateOnHoverCommand(
 ) {
   //**
   // Handle translate on Hover
-  //  */
+  //*/
   const hoverProvide = vscode.languages.registerHoverProvider(
     { scheme: "file" },
     {
@@ -39,7 +39,7 @@ export default function registerTranslateOnHoverCommand(
 
   //**
   // Register command for each languge
-  //  */
+  //*/
   const prefix = "translate-i18n.autoTranslateTo";
   Object.entries(SUPPORT_LANGUAGES).forEach(([key, value]) => {
     const command = vscode.commands.registerCommand(prefix + key, async () => {

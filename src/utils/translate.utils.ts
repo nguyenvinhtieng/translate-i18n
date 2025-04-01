@@ -3,10 +3,9 @@ import { getFileContent, getTextSelected } from "./vs-code.utils";
 import { convertJsonToKeyValueArray, isJsonString } from "./string.utils";
 import { TranslateServiceResponse } from "../types/common.types";
 
-export const getTextAndKeysTranslate = () => {
-  const editor = vscode.window.activeTextEditor;
-  const text = getTextSelected() || getFileContent();
-  if (!text || !editor) {
+export const getTextAndKeysTranslate = (fileContent?: string) => {
+  const text = fileContent || getTextSelected() || getFileContent();
+  if (!text) {
     return {
       valueNeedToTranslate: "",
       keys: [],

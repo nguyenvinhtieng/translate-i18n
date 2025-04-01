@@ -1,6 +1,5 @@
 import * as vscode from "vscode";
 import { getTextAndKeysTranslate } from "../utils/translate.utils";
-import { selectLanguages } from "../utils/language.utils";
 import { translateAndWriteFileService } from "../services/translate.service";
 import { SUPPORT_LANGUAGES } from "../constants/common.constant";
 

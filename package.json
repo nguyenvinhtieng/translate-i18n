@@ -57,6 +57,10 @@
       {
         "command": "translate-i18n.offAutoTranslate",
         "title": "Turn off auto translate"
+      },
+      {
+        "command": "translate-i18n.translateI18nFiles",
+        "title": "Translate i18n files"
       }
     ],
     "submenus": [
@@ -120,6 +124,13 @@
         },
         {
           "command": "translate-i18n.autoTranslateToVIETNAMESE"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "translate-i18n.translateI18nFiles",
+          "group": "1_translate-i18n",
+          "when": "explorerResourceIsFolder || resourceScheme == file"
         }
       ]
     },

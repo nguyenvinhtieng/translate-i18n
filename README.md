@@ -48,6 +48,28 @@
 
    ![Translate to English](./assets/translate-eng.gif)
 
+4. Translate on Select and Hover
+
+   • Right-click and choose `Auto translate on select and hover` and Select the language which you want to translate.
+
+   • Now, when you select any text, it will be translated automatically on Hover.
+
+   • The translated text will be displayed in a tooltip.
+
+   ![Translate on Select](./assets/translate-select.gif)
+
+5. Translate Files
+
+   • Select files you want to translate in the explorer.
+
+   • Right-click and choose Translate i18n Files.
+
+   • Select the target language and the destination folder where the translated files will be saved.
+
+   • The translated files will be saved in the destination folder.
+
+   ![Translate Files](./assets/translate-files.gif)
+
 ## License
 
 MIT License. See LICENSE for more information.
