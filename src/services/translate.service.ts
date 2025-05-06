@@ -39,11 +39,42 @@ export const translateApiService = async (
 };
 
 //****************************************************************//
+export const TRANSLATE_CHUNK = 15; // 15 keys
+export const SPLIT_CHARACTER = "####";
+export const translateByChunk = async ({
+  sourceLanguage,
+  targetLanguage,
+  valueNeedToTranslate,
+}: {
+  sourceLanguage?: string;
+  targetLanguage: string;
+  valueNeedToTranslate: string[];
+}): Promise<string[]> => {
+  const translateResult: string[] = [];
+  for (let i = 0; i < valueNeedToTranslate.length; i += TRANSLATE_CHUNK) {
+    const chunk = valueNeedToTranslate.slice(i, i + TRANSLATE_CHUNK);
+    const body = {
+      sourceLanguage,
+      targetLanguage,
+      valueNeedToTranslate: chunk.join(SPLIT_CHARACTER),
+    };
+    const response = await translateApiService(body);
+    const { data, status } = response || {};
+    if (!response || status !== 200 || !data) {
+      vscode.window.showErrorMessage(
+        "Error when translating, please try again later!"
+      );
+      return [];
+    }
+    translateResult.push(...data.split(SPLIT_CHARACTER));
+  }
+  return translateResult;
+};
 
 interface TranslateParams {
   sourceLanguage?: string;
   targetLanguage: string;
-  valueNeedToTranslate: string;
+  valueNeedToTranslate: string[];
   keys: string[];
 }
 export const translateAndWriteFileService = async (params: TranslateParams) => {
@@ -55,26 +86,17 @@ export const translateAndWriteFileService = async (params: TranslateParams) => {
       cancellable: false,
     },
     async () => {
-      const body = {
+      const translateResult = await translateByChunk({
         sourceLanguage,
         targetLanguage,
         valueNeedToTranslate,
-      };
-      const response = await translateApiService(body);
-      const { data, status } = response || {};
-
-      if (!response || status !== 200 || !data) {
-        vscode.window.showErrorMessage(
-          "Error when translating, please try again later!"
-        );
-        return;
-      }
+      });
 
       // Translate text
       if (keys.length === 0) {
         const newDocument = await vscode.workspace.openTextDocument({
           language: "txt",
-          content: data,
+          content: translateResult[0] || '',
         });
         await vscode.window.showTextDocument(
           newDocument,
@@ -84,12 +106,11 @@ export const translateAndWriteFileService = async (params: TranslateParams) => {
       }
 
       // Translate JSON
-      const texts = data.split("\n");
-      const json = convertKeyValueArrayToJson(keys, texts);
+      const json = convertKeyValueArrayToJson(keys, translateResult);
 
       if (!json) {
         vscode.window.showErrorMessage("Error when reverting JSON!");
-        vscode.env.clipboard.writeText(data);
+        vscode.env.clipboard.writeText(translateResult.join("\n"));
         return;
       }
 

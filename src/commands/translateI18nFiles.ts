@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 import path from "path";
 import { getTextAndKeysTranslate } from "../utils/translate.utils";
 import { selectLanguages } from "../utils/language.utils";
-import { translateApiService } from "../services/translate.service";
+import { translateByChunk } from "../services/translate.service";
 import {
   getFileContent,
   getFilesFromPaths,
@@ -82,28 +82,26 @@ export default function registerTranslateI18nFilesCommand(
                   "Yes",
                   "No"
                 );
-                if (confirm !== "Yes") continue;
+                if (confirm !== "Yes") {continue;}
               }
 
               const fileContent = getFileContent(file.fsPath);
-              if (!fileContent) continue;
+              if (!fileContent) {continue;}
 
-              const { valueNeedToTranslate, keys } =
-                getTextAndKeysTranslate(fileContent);
-              const response = await translateApiService({
+              const { valueNeedToTranslate, keys } = getTextAndKeysTranslate(fileContent);
+              const translateResult = await translateByChunk({
                 targetLanguage,
                 valueNeedToTranslate,
               });
-
-              if (!response?.data) continue;
+              
 
               const translatedContent = keys.length
                 ? JSON.stringify(
-                    convertKeyValueArrayToJson(keys, response.data.split("\n")),
+                    convertKeyValueArrayToJson(keys, translateResult),
                     null,
                     2
                   )
-                : response.data;
+                : translateResult.join('');
 
               await vscode.workspace.fs.writeFile(
                 vscode.Uri.file(destFilePath),
