@@ -43,3 +43,11 @@
 - Update to allow users to translate up to 20 files at once.
 
 - Improved the extension’s performance and stability.
+
+## [0.0.7] - Bug Fixes (🐞)
+
+- Fixed an issue when translating a file that has a lot of text.
+
+## [0.0.8] - Optimize (📌)
+
+- Update to translate by chunk, run in parallel.

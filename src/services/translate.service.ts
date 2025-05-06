@@ -50,25 +50,43 @@ export const translateByChunk = async ({
   targetLanguage: string;
   valueNeedToTranslate: string[];
 }): Promise<string[]> => {
-  const translateResult: string[] = [];
+  const chunks: string[][] = [];
   for (let i = 0; i < valueNeedToTranslate.length; i += TRANSLATE_CHUNK) {
-    const chunk = valueNeedToTranslate.slice(i, i + TRANSLATE_CHUNK);
-    const body = {
-      sourceLanguage,
-      targetLanguage,
-      valueNeedToTranslate: chunk.join(SPLIT_CHARACTER),
-    };
-    const response = await translateApiService(body);
-    const { data, status } = response || {};
-    if (!response || status !== 200 || !data) {
-      vscode.window.showErrorMessage(
-        "Error when translating, please try again later!"
-      );
-      return [];
-    }
-    translateResult.push(...data.split(SPLIT_CHARACTER));
+    chunks.push(valueNeedToTranslate.slice(i, i + TRANSLATE_CHUNK));
   }
-  return translateResult;
+
+  try {
+    const responses = await Promise.all(
+      chunks.map((chunk) => {
+        const body = {
+          sourceLanguage,
+          targetLanguage,
+          valueNeedToTranslate: chunk.join(SPLIT_CHARACTER),
+        };
+        return translateApiService(body);
+      })
+    );
+
+    const allTranslated: string[] = [];
+
+    for (const response of responses) {
+      const { data, status } = response || {};
+      if (!response || status !== 200 || !data) {
+        vscode.window.showErrorMessage(
+          "Error when translating, please try again later!"
+        );
+        return [];
+      }
+      allTranslated.push(...data.split(SPLIT_CHARACTER));
+    }
+
+    return allTranslated;
+  } catch (err) {
+    vscode.window.showErrorMessage(
+      "Unexpected error when translating, please try again later!"
+    );
+    return [];
+  }
 };
 
 interface TranslateParams {
